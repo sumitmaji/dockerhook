@@ -1,4 +1,4 @@
-IMAGE_NAME=sumit/githook
-REPO_NAME=githook
-CONTAINER_NAME=githook
+IMAGE_NAME=sumit/dockerhook
+REPO_NAME=dockerhook
+CONTAINER_NAME=dockerhook
 BUILD_PATH=/tmp
