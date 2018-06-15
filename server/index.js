@@ -23,7 +23,10 @@ app.post('/process', (req, res, next) => {
         silent: false,
         cwd: '.'
       })
-      .then(stdout => console.log('Success'))
+      .then(stdout => {
+        console.log('Success')
+
+      })
       .catch(err => console.log(err));
     res.status(200).send('done');
   } catch (err) {
@@ -41,6 +44,39 @@ function execAsync(cmd, opts = {}) {
   });
 }
 
+function submitDeploymentReq(url, rep){
+  var data = JSON.stringify({
+    peyload: {
+      url,
+      rep
+    }
+  });
+
+  var options = {
+     host: '11.0.0.2',
+     port: 5003,
+     method: 'POST',
+     path: '/deploy',
+     headers: {
+       'Content-Type': 'application/json',
+       'Content-Length': Buffer.byteLength(data)
+     }
+   };
+
+   var httpreq = http.request(options, function(response) {
+     response.setEncoding('utf8');
+     response.on('data', function(chunk) {
+       console.log("body: " + chunk);
+     });
+     response.on('end', function() {
+       console.log('Deployment Request submitted.')
+     })
+   }).on("error", (err) => {
+     console.log("Error: " + err.message);
+   });
+   httpreq.write(data);
+   httpreq.end();
+}
 
 app.use((err, req, res, next) => {
   console.log(err)
