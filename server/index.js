@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const shell = require('shelljs')
 const Promise = require('bluebird')
-
+const http = require('http');
 //To parse URL encoded data
 app.use(bodyParser.urlencoded({
   extended: false
@@ -25,7 +25,7 @@ app.post('/process', (req, res, next) => {
       })
       .then(stdout => {
         console.log('Success')
-
+        submitDeploymentReq(url, rep)
       })
       .catch(err => console.log(err));
     res.status(200).send('done');
@@ -46,7 +46,7 @@ function execAsync(cmd, opts = {}) {
 
 function submitDeploymentReq(url, rep){
   var data = JSON.stringify({
-    peyload: {
+    payload: {
       url,
       rep
     }
