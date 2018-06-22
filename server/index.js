@@ -18,8 +18,10 @@ app.post('/process', (req, res, next) => {
 
     var url = req.body.repository.owner.html_url;
     var rep = req.body.repository.name;
+    var ref = req.body.ref
+    var branch = ref.split('/')[2]
     console.log(url, rep)
-    execAsync(`./scripts/build.sh -r ${rep} -u ${url}`, {
+    execAsync(`./scripts/build.sh -r ${rep} -u ${url} -b ${branch}`, {
         silent: false,
         cwd: '.'
       })
