@@ -27,7 +27,7 @@ app.post('/process', (req, res, next) => {
       })
       .then(stdout => {
         console.log('Success')
-        submitDeploymentReq(url, rep)
+        submitDeploymentReq(url, rep, branch)
       })
       .catch(err => console.log(err));
     res.status(200).send('done');
@@ -46,11 +46,12 @@ function execAsync(cmd, opts = {}) {
   });
 }
 
-function submitDeploymentReq(url, rep){
+function submitDeploymentReq(url, rep, branch){
   var data = JSON.stringify({
     payload: {
       url,
-      rep
+      rep,
+      branch
     }
   });
 
