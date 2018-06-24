@@ -44,7 +44,13 @@ pushd $REP
 source configuration
 chmod +x build.sh
 ./build.sh
+if [ $? -eq 0 ]
+then
 docker tag $IMAGE_NAME master.cloud.com:5000/$REPO_NAME
 docker push master.cloud.com:5000/$REPO_NAME
+else
+  echo "Error while executing script."
+  exit 1
+fi
 popd
 popd
