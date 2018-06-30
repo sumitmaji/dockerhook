@@ -56,7 +56,7 @@ function submitDeploymentReq(url, rep, branch){
   });
 
   var options = {
-     host: '11.0.0.2',
+     host: '11.0.0.1',
      port: 5003,
      method: 'POST',
      path: '/deploy',
